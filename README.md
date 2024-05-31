@@ -1,0 +1,1 @@
+A blog I made following an online tutorial. The python is all mine, but the css is not. My plan is to slowly learn web development and change the style to my own customer design as I go... than add more features to make it my own completely. That's the plan, we will see how busy I get with uni
