@@ -251,7 +251,7 @@ def edit_post(id):
     form = NewPostForm(
         title=get_post.title,
         subtitle=get_post.subtitle,
-        author=get_post.author,
+        author=current_user,
         image=get_post.img_url,
         body=get_post.body
     )
