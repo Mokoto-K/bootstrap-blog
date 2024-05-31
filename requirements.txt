@@ -1,0 +1,15 @@
+# For gravatar to work you need to install the below flask, otherwise if you dont care
+# or have a different method for profile images, install the newest version of Flask
+Flask==2.2.5
+requests
+flask_sqlalchemy
+Bootstrap_Flask
+Flask_CKEditor
+Werkzeug
+SQLAlchemy
+WTForms
+Flask_WTF
+Flask_Login
+Flask-Gravatar
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
