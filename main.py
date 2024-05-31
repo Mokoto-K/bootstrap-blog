@@ -16,12 +16,13 @@ from flask_wtf import FlaskForm
 from functools import wraps
 import datetime as dt
 import smtplib
+import os
 
 
 
 # Email address that contact requests are sent too and password for access to this app
-EMAIL = "youngerthugger1@gmail.com"
-PWORD = "wqvkmrpskqmzuelm"
+EMAIL = os.environ.get("EMAIL")
+PWORD = os.environ.get("EMAIL_PWORD")
 
 
 class Base(DeclarativeBase):
@@ -34,8 +35,8 @@ login_manager = LoginManager()
 # Must install older version of flask for this gravatar to work
 gravatar = Gravatar(app, size=50)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
-app.config["SECRET_KEY"] = "SecretBlogKeyOfHeck"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", "sqlite:///blog.db")
+app.config["SECRET_KEY"] = os.environ.get("FLASK_KEY")
 
 db.init_app(app)
 login_manager.init_app(app)
@@ -335,7 +336,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 
 # TODO: Change all the dict[title] style calls in the html to post.title or whatever it is meant to be
 # TODO: There are endless problems with text all throughout the site, wrong labels, bad grammar,etc
