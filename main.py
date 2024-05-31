@@ -262,7 +262,7 @@ def edit_post(id):
             get_post = db.session.execute(db.select(Posts).where(Posts.id == id)).scalar()
             get_post.title = request.form.get("title")
             get_post.body = request.form.get("body")
-            get_post.author = request.form.get("author")
+            get_post.author = current_user
             get_post.img_url = request.form.get("image")
             get_post.subtitle = request.form.get("subtitle")
             db.session.commit()
