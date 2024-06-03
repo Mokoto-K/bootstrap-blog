@@ -5,8 +5,9 @@ from flask_login import LoginManager, login_user, UserMixin, logout_user, curren
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
-from wtforms import StringField, SubmitField, EmailField
+from wtforms import StringField, SubmitField, EmailField, PasswordField
 from flask_ckeditor import CKEditor, CKEditorField
+from dotenv import load_dotenv, dotenv_values
 from wtforms.validators import DataRequired
 from sqlalchemy import ForeignKey, Integer
 from flask_sqlalchemy import SQLAlchemy
@@ -18,11 +19,12 @@ import datetime as dt
 import smtplib
 import os
 
+load_dotenv()
 
-
+# TODO: ENVIRON Variables arnt saving on server correctly and crashing when trying to send email, look into why
 # Email address that contact requests are sent too and password for access to this app
-EMAIL = os.environ.get("EMAIL")
-PWORD = os.environ.get("EMAIL_PWORD")
+EMAIL = os.getenv('EMAIL')
+PWORD = os.getenv('PASSWORD')
 
 
 class Base(DeclarativeBase):
@@ -35,8 +37,8 @@ login_manager = LoginManager()
 # Must install older version of flask for this gravatar to work
 gravatar = Gravatar(app, size=50)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", "sqlite:///blog.db")
-app.config["SECRET_KEY"] = os.environ.get("FLASK_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DB_URI","sqlite:///blog.db")
+app.config["SECRET_KEY"] = os.getenv("FLASK_KEY")
 
 db.init_app(app)
 login_manager.init_app(app)
@@ -111,7 +113,7 @@ with app.app_context():
 class RegisterForm(FlaskForm):
     email = EmailField(name='email', validators=[DataRequired()])
     username = StringField(name='username', validators=[DataRequired()])
-    password = StringField(name="password", validators=[DataRequired()])
+    password = PasswordField(name="password", validators=[DataRequired()])
     submit = SubmitField(name='submit', validators=[DataRequired()])
 
 
@@ -336,7 +338,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
 
 # TODO: Change all the dict[title] style calls in the html to post.title or whatever it is meant to be
 # TODO: There are endless problems with text all throughout the site, wrong labels, bad grammar,etc
