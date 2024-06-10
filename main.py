@@ -19,6 +19,15 @@ import datetime as dt
 import smtplib
 import os
 
+# TODO: Change all the dict[title] style calls in the html to post.title or whatever it is meant to be
+# TODO: There are endless problems with text all throughout the site, wrong labels, bad grammar,etc
+# TODO: BIG BUG with deleteing post, the id's dont update, their eventually stuff starts to crash when typing in addresses.
+# TODO: Start a custom css file
+# TODO Change all photos to originals
+# TODO Wipe out all the latin and fill with correct information
+# TODO Fix email sending so it doesnt crash when running in the cloud
+
+
 load_dotenv()
 
 # TODO: ENVIRON Variables arnt saving on server correctly and crashing when trying to send email, look into why
@@ -340,7 +349,3 @@ def logout():
 if __name__ == "__main__":
     app.run(debug=True)
 
-# TODO: Change all the dict[title] style calls in the html to post.title or whatever it is meant to be
-# TODO: There are endless problems with text all throughout the site, wrong labels, bad grammar,etc
-# TODO: BIG BUG with deleteing post, the id's dont update, their eventually stuff starts to crash when typing in addresses.
-# TODO: Start a custom css file
